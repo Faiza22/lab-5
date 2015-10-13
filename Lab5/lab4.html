@@ -1,0 +1,141 @@
+<html>
+<head>
+	<style>
+		#background
+		{
+			background-image:url('images/clouds.jpg');
+			width:100%;
+			height:100%;
+			animation:example 3s linear infinite;
+		}
+
+		#background2
+		{
+			background-image:url('images/clouds.jpg');
+			width:100%;
+			height:100%;
+		}
+		
+		#plane
+		{
+			position:absolute;
+			background-image:url('images/plane.png');
+			width:26%;
+			height:30%;
+			top:20%;
+			left:5%;
+			background-repeat:no-repeat;
+			background-position: 20% 20%;
+		}
+
+
+		#plane:target
+		{
+			background-position:20% 70%;
+		}
+
+		/* Standard syntax */
+		@keyframes example {
+ 			from {background-position: 100% 0%;}
+   			to {background-position: 0% 0%;}
+		}
+
+		#bird1
+		{
+			position:absolute;
+			top:20%;
+			right:0%;
+			animation:example2 4s linear infinite;
+		}
+
+		#bird2
+		{
+			position:absolute;
+			right:0%;
+			top:55%;
+			animation:example2 6s linear infinite;
+			animation-delay:2s;
+		}
+
+		/* Standard syntax */
+		@keyframes example2 {
+ 			from {right: 0%;}
+   			to {right: 100%;}
+		}
+
+	</style>
+
+	<script>
+
+		function click_down()
+		{
+			var p=document.getElementById("plane");
+			p.style.top=50+'%';
+		}
+
+		function click_up()
+		{
+			var p=document.getElementById("plane");
+			p.style.top=20+'%';
+		}
+
+		
+	</script>
+</head>
+
+<body>
+<div id="background">
+	<br><br>
+	<center>
+	<INPUT TYPE='button' NAME='up' VALUE='up' onclick='click_up()'>
+	<INPUT TYPE='button' NAME='Down' VALUE='down' onclick='click_down()'>
+	</center>
+	<div id='plane'> </div>
+	<img src='images/bird.png' id='bird1'>
+	<img src='images/bird.png' id='bird2'>
+	
+</div>
+
+<script>
+		var plane = document.getElementById("plane");
+		var bird1    = document.getElementById("bird1");
+		var bird2    = document.getElementById("bird2");
+
+	
+		setInterval(function(){
+    
+    			
+    			var planeRight    = parseInt(window.getComputedStyle(plane,null).getPropertyValue("right"));
+    			var planeTop = parseInt(window.getComputedStyle(plane,null).getPropertyValue("top"));
+			var planeBottom = parseInt(window.getComputedStyle(plane,null).getPropertyValue("bottom"));
+
+    			var bird1Right = parseInt(window.getComputedStyle(bird1,null).getPropertyValue("right"));
+			var bird1Top = parseInt(window.getComputedStyle(bird1,null).getPropertyValue("top"));
+			var bird1Width = parseInt(window.getComputedStyle(bird1,null).getPropertyValue("width"));
+			var bird2Right = parseInt(window.getComputedStyle(bird2,null).getPropertyValue("right"));
+			var bird2Top = parseInt(window.getComputedStyle(bird2,null).getPropertyValue("top"));
+			var bird2Width = parseInt(window.getComputedStyle(bird2,null).getPropertyValue("width"));
+			var bird2Bottom = parseInt(window.getComputedStyle(bird2,null).getPropertyValue("bottom"));
+			    
+    			if((bird1Right + bird1Width >= planeRight && bird1Top>=planeTop) || (bird2Right + bird2Width >= planeRight && bird2Top>=planeTop && planeBottom<bird2Bottom) ) {
+       			   
+    				 finish();  
+    			}
+    
+    			
+		},33);
+
+		function finish()
+		{
+			var bird1    = document.getElementById("bird1");
+			var bird2    = document.getElementById("bird2");
+			var stop    = document.getElementById("background");
+			bird1.style.left=1220+'px';
+			bird2.style.left=1220+'px';
+			stop.setAttribute('id','background2');
+			
+		}
+	
+</script>
+</body>
+</html>
